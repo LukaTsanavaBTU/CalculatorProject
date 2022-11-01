@@ -23,18 +23,18 @@ class MainActivity : AppCompatActivity() {
 
     fun clickNumber(clickedView: View) {
         if (clickedView is TextView) {
+            if ((tvResult.text.toString() != "Infinity") and (tvResult.text.toString() != "NaN")) {
+                var currentText = tvResult.text.toString()
+                val addedNumber = clickedView.text.toString()
 
-            var currentText = tvResult.text.toString()
-            val addedNumber = clickedView.text.toString()
+                if (currentText == "0") {
+                    currentText = ""
+                }
 
-            if (currentText == "0") {
-                currentText = ""
+                val newNumber = currentText + addedNumber
+
+                tvResult.text = newNumber
             }
-
-            val newNumber = currentText + addedNumber
-
-            tvResult.text = newNumber
-
         }
     }
 
@@ -94,13 +94,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun clickDecimal(clickedView: View) {
-        if (clickedView is TextView) {
-            if (tvResult.text.toString() == "") {
-                tvResult.text = "0."
-            }
-            else if ("." !in tvResult.text.toString()){
-                val tempText = tvResult.text.toString() + "."
-                tvResult.text = tempText
+        if ((tvResult.text.toString() != "Infinity") and (tvResult.text.toString() != "NaN")) {
+            if (clickedView is TextView) {
+                if (tvResult.text.toString() == "") {
+                    tvResult.text = "0."
+                } else if ("." !in tvResult.text.toString()) {
+                    val tempText = tvResult.text.toString() + "."
+                    tvResult.text = tempText
+                }
             }
         }
     }
