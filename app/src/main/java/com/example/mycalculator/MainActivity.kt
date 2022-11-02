@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 tvResult.text = ""
                 operator = clickedView.text.toString()
             }
+            else { operator = clickedView.text.toString() }
 
         }
 
