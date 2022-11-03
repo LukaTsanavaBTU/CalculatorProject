@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvResult: TextView
     private var firstOperand = 0.0
     private var operator = ""
+    private var operatorBeenPressed = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +42,25 @@ class MainActivity : AppCompatActivity() {
     fun clickOperator(clickedView: View) {
         if (clickedView is TextView){
             if (tvResult.text.toString() != "") {
-                firstOperand = tvResult.text.toString().toDouble()
-                tvResult.text = ""
-                operator = clickedView.text.toString()
+                if (!operatorBeenPressed) {
+                    firstOperand = tvResult.text.toString().toDouble()
+                    tvResult.text = ""
+                    operator = clickedView.text.toString()
+                    operatorBeenPressed = true
+                }
+                else {
+                    var finalResult = 0.0
+                    val secondOperand = tvResult.text.toString().toDouble()
+                    when(operator){
+                        "+" -> finalResult = firstOperand + secondOperand
+                        "÷" -> finalResult = firstOperand / secondOperand
+                        "×" -> finalResult = firstOperand * secondOperand
+                        "-" -> finalResult = firstOperand - secondOperand
+                    }
+
+                    firstOperand = finalResult
+                    tvResult.text = ""
+                    operator = clickedView.text.toString()}
             }
             else { operator = clickedView.text.toString() }
 
@@ -69,6 +86,7 @@ class MainActivity : AppCompatActivity() {
 
                 operator = ""
                 firstOperand = 0.0
+                operatorBeenPressed = false
             }
         }
     }
@@ -78,6 +96,7 @@ class MainActivity : AppCompatActivity() {
             operator = ""
             firstOperand = 0.0
             tvResult.text = "0"
+            operatorBeenPressed = false
         }
     }
 
